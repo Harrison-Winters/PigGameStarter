@@ -20,8 +20,16 @@ public class PigLocalGame extends LocalGame {
     /**
      * This ctor creates a new game state
      */
+
+
+    private PigGameState pigGameState;
+
+
+
     public PigLocalGame() {
         //TODO  You will implement this constructor
+
+        pigGameState = new PigGameState();
     }
 
     /**
@@ -30,6 +38,12 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         //TODO  You will implement this method
+
+
+        if (playerIdx == pigGameState.getTurnId()) {
+            return true;
+        }
+
         return false;
     }
 
@@ -41,6 +55,30 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         //TODO  You will implement this method
+
+        if (action instanceof PigHoldAction) {
+            if (pigGameState.getTurnId() == 0) {
+                pigGameState.setPlayer0Score(pigGameState.getRunningTotal()
+                        + pigGameState.getPlayer0Score());
+
+            }
+
+            else if (pigGameState.getTurnId() == 1) {
+                pigGameState.setPlayer1Score(pigGameState.getRunningTotal()
+                        + pigGameState.getPlayer1Score());
+
+            }
+
+            pigGameState.setRunningTotal(0);
+
+            if (super.playerNames.length > 1) {
+
+            }
+
+        }
+
+
+
         return false;
     }//makeMove
 
