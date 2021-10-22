@@ -7,6 +7,8 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 import android.util.Log;
 
+import java.util.Random;
+
 // dummy comment, to see if commit and push work from srvegdahl account
 
 /**
@@ -72,15 +74,42 @@ public class PigLocalGame extends LocalGame {
             pigGameState.setRunningTotal(0);
 
             if (super.playerNames.length > 1) {
-
+                if (pigGameState.getTurnId() == 0) {
+                    pigGameState.setTurnId(1);
+                }
+                else if (pigGameState.getTurnId() == 1) {
+                    pigGameState.setTurnId(0);
+                }
             }
 
+            return true;
+            }
+
+
+        if (action instanceof PigRollAction) {
+            Random rnd = new Random();
+
+            pigGameState.setCurrDieValue(rnd.nextInt(6 - 1) + 1);
+
+            if (pigGameState.getCurrDieValue() != 1) {
+               pigGameState.setRunningTotal(pigGameState.getRunningTotal()+ pigGameState.getCurrDieValue());
+            }
+            else if (pigGameState.getCurrDieValue() == 1){
+                pigGameState.setRunningTotal(0);
+            }
+
+            return true;
+
+
+
+        }
+        return false;
         }
 
 
 
-        return false;
-    }//makeMove
+
+
 
     /**
      * send the updated state to a given player
@@ -88,6 +117,13 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         //TODO  You will implement this method
+        PigGameState pigGameStateCopy = new PigGameState(pigGameState);
+
+        p.sendInfo(pigGameStateCopy);
+
+
+
+
     }//sendUpdatedSate
 
     /**
@@ -100,6 +136,16 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
         //TODO  You will implement this method
+        if (pigGameState.getPlayer0Score() >= 50) {
+            return "The Winner is: " + super.playerNames[0] + " Their score was: "  + pigGameState.getPlayer0Score();
+        }
+
+        if (pigGameState.getPlayer1Score() >=50) {
+            return "The Winner is: " + super.playerNames[1] + " Their score was: " + pigGameState.getPlayer1Score();
+        }
+
+
+
         return null;
     }
 
