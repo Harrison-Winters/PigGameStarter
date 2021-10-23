@@ -96,7 +96,20 @@ public class PigLocalGame extends LocalGame {
             }
             else if (pigGameState.getCurrDieValue() == 1){
                 pigGameState.setRunningTotal(0);
+
+                if (super.playerNames.length > 1) {
+                    if (pigGameState.getTurnId() == 0) {
+                        pigGameState.setTurnId(1);
+                    }
+                    else if (pigGameState.getTurnId() == 1) {
+                        pigGameState.setTurnId(0);
+                    }
+                }
+
+                return true;
             }
+
+
 
             return true;
 
