@@ -1,6 +1,9 @@
 package edu.up.cs301.pig;
 
+import android.os.Handler;
+
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.actionMsg.GameAction;
@@ -18,6 +21,11 @@ public class PigComputerPlayer extends GameComputerPlayer {
     /**
      * ctor does nothing extra
      */
+
+
+    //Add Handler for delay
+    final Handler hand = new Handler();
+
     public PigComputerPlayer(String name) {
         super(name);
     }
@@ -37,9 +45,20 @@ public class PigComputerPlayer extends GameComputerPlayer {
             return;
         }
 
+
         else {
+
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+
+
             Random rnd = new Random();
-            int actionNum = rnd.nextInt(1 - 0);
+            int actionNum = rnd.nextInt(2 - 0);
 
 
 
