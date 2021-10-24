@@ -71,14 +71,27 @@ public class PigLocalGame extends LocalGame {
 
             }
 
+            //Store the running total before resetting it
+            int lastRunningTotal = pigGameState.getRunningTotal();
+
             pigGameState.setRunningTotal(0);
 
             if (super.playerNames.length > 1) {
                 if (pigGameState.getTurnId() == 0) {
                     pigGameState.setTurnId(1);
+
+
+                    //New Turn, send message
+                    pigGameState.setMessage(super.playerNames[0] + " added " + lastRunningTotal +
+                            " to their final score");
                 }
+
                 else if (pigGameState.getTurnId() == 1) {
                     pigGameState.setTurnId(0);
+
+                    //New Turn, send message
+                    pigGameState.setMessage(super.playerNames[1] + " added " + lastRunningTotal +
+                            " to their final score");
                 }
             }
 
@@ -97,12 +110,21 @@ public class PigLocalGame extends LocalGame {
             else if (pigGameState.getCurrDieValue() == 1){
                 pigGameState.setRunningTotal(0);
 
+
                 if (super.playerNames.length > 1) {
                     if (pigGameState.getTurnId() == 0) {
                         pigGameState.setTurnId(1);
+
+                        //New Turn, send message
+
+                        pigGameState.setMessage(super.playerNames[0] + " rolled a 1 and lost everything!" );
                     }
                     else if (pigGameState.getTurnId() == 1) {
                         pigGameState.setTurnId(0);
+
+                        //New Turn, send Message
+
+                        pigGameState.setMessage(super.playerNames[1] + " rolled a 1 and lost everything!" );
                     }
                 }
 

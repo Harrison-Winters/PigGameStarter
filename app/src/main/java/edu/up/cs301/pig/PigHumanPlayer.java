@@ -83,6 +83,7 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
             //Update image of die
 
+
             switch (((PigGameState) info).getCurrDieValue()) {
 
                 case 1:
@@ -109,6 +110,19 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
                     dieImageButton.setImageResource(R.drawable.face6);
                     break;
             }
+
+
+            //Set background color of die button
+            if (((PigGameState) info).getTurnId() == 0) {
+                dieImageButton.setBackgroundColor(Color.RED);
+            }
+            else if (((PigGameState) info).getTurnId() == 1) {
+                dieImageButton.setBackgroundColor(Color.GRAY);
+            }
+
+
+            //Send appropriate message
+            messageTextView.setText(((PigGameState) info).getMessage());
 
         }
 
