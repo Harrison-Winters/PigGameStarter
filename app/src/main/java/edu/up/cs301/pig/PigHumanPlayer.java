@@ -33,6 +33,10 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
     private ImageButton dieImageButton      = null;
     private Button      holdButton          = null;
 
+    //Added by me to relabel "your score" and "opponent's score"
+    private TextView playerScoreLabel;
+    private TextView oppScoreLabel;
+
     // the android activity that we are running
     private GameMainActivity myActivity;
 
@@ -182,10 +186,21 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
         this.dieImageButton      = (ImageButton)activity.findViewById(R.id.dieButton);
         this.holdButton          = (Button)activity.findViewById(R.id.holdButton);
 
+        //Added by me to relabel "your score" and "opponent's score"
+        this.playerScoreLabel = (TextView)activity.findViewById(R.id.yourScoreText);
+        this.oppScoreLabel = (TextView)activity.findViewById(R.id.oppScoreText);
+
+
         //Listen for button presses
         dieImageButton.setOnClickListener(this);
         holdButton.setOnClickListener(this);
 
     }//setAsGui
 
+
+    protected void initAfterReady() {
+        this.playerScoreLabel.setText(super.name + " 's score");
+        this.oppScoreLabel.setText(super.allPlayerNames[1] + " 's score");
+
+    }
 }// class PigHumanPlayer
